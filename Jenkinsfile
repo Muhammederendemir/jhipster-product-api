@@ -22,7 +22,7 @@ node {
         sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
     }
 
-    stage('run') {
+    stage('run1') {
         sh "./mvnw"
     }
 
