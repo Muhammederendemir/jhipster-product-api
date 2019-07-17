@@ -22,6 +22,10 @@ node {
         sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
     }
 
+    stage('run') {
+        sh "./mvnw"
+    }
+
     stage('packaging') {
         sh "./mvnw verify -Pdev -DskipTests"
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
