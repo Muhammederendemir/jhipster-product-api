@@ -1,0 +1,21 @@
+{
+    "libraryApp": {
+        "publisher": {
+            "home": {
+                "title": "Publishers",
+                "createLabel": "Create a new Publisher",
+                "createOrEditLabel": "Create or edit a Publisher"
+            },
+            "created": "A new Publisher is created with identifier {{ param }}",
+            "updated": "A Publisher is updated with identifier {{ param }}",
+            "deleted": "A Publisher is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Publisher {{ id }}?"
+            },
+            "detail": {
+                "title": "Publisher"
+            },
+            "name": "Name"
+        }
+    }
+}

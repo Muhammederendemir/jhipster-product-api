@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="client">
+            <h2><span jhiTranslate="libraryApp.client.detail.title">Client</span> {{client.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="libraryApp.client.firstName">First Name</span></dt>
+                <dd>
+                    <span>{{client.firstName}}</span>
+                </dd>
+                <dt><span jhiTranslate="libraryApp.client.lastName">Last Name</span></dt>
+                <dd>
+                    <span>{{client.lastName}}</span>
+                </dd>
+                <dt><span jhiTranslate="libraryApp.client.email">Email</span></dt>
+                <dd>
+                    <span>{{client.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="libraryApp.client.address">Address</span></dt>
+                <dd>
+                    <span>{{client.address}}</span>
+                </dd>
+                <dt><span jhiTranslate="libraryApp.client.phone">Phone</span></dt>
+                <dd>
+                    <span>{{client.phone}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/client', client.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
