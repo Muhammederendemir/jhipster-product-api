@@ -24,6 +24,7 @@ node {
 
     stage('packaging') {
         sh "./mvnw verify -Pdev -DskipTests"
-        archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+        archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     }
+
 }
