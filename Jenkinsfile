@@ -34,7 +34,7 @@ node {
 
     stage('frontend tests') {
         try {
-            sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test'"
+            sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test --passWithNoTests'"
         } catch(err) {
             throw err
         } finally {
