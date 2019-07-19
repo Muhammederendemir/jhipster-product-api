@@ -3,6 +3,7 @@
 node {
     stage('checkout') {
         checkout scm
+        slackSend "Build Started - "
     }
 
     stage('check java') {
@@ -22,15 +23,6 @@ node {
         sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
     }
 
-    stage('backend tests') {
-        try {
-            sh "./mvnw test"
-        } catch(err) {
-            throw err
-        } finally {
-            junit '**/target/surefire-reports/TEST-*.xml'
-        }
-    }
 
     stage('packaging') {
         sh "./mvnw verify -Pdev -DskipTests"
