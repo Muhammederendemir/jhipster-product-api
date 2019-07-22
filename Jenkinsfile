@@ -14,7 +14,7 @@ node {
 
         } catch (err) {
             currentBuild.result = 'FAILED'
-            notifyBuild('ERROR'," Hata Mesajı : "+echo_all(currentBuild.rawBuild.getLog(1000)))
+            notifyBuild('ERROR',"Hata Mesajı : "+echo_all(currentBuild.rawBuild.getLog(1000)))
             throw err
 
         } finally {
@@ -49,35 +49,49 @@ node {
 
 }
 
-    def notifyBuild(String buildStatus,String message) {
+    def notifyBuild(String message) {
         // Default values
-        def colorName = 'RED'
         def colorCode = '#FF0000'
-        def channelName='#jenkins';
+        def channelName='#jenkins'
+        def color='red'
 
 
+        def buildState="Build Status : ${currentBuild.currentResult}"
+        color='BLUE'
+        colorCode = '#002366'
+        slackSend(channel:channelName ,color: colorCode, message: buildState)
 
-        def buildState="Build Status : ${buildStatus}\n"
         def jobName="Job Name : ${env.JOB_NAME}\n"
-        def buildNumber="Build Number : ${env.BUILD_NUMBER}\n"
-        def buildUrl= "Build Url  : ${env.BUILD_URL}\n"
+        color='PURPLE'
+        colorCode = '#4e5180'
+        slackSend(channel:channelName ,color: colorCode, message: jobName)
 
-        def summary = "${buildState} ${jobName} ${buildNumber} ${buildUrl} ${message}"
+
+        def buildNumber="Build Number : ${env.BUILD_NUMBER}\n"
+        color='ORANGE'
+        colorCode = '#e86180'
+        slackSend(channel:channelName ,color: colorCode, message: buildNumber)
+
+        def buildUrl= "Build Url  : ${env.BUILD_URL}\n"
+        color='GREY'
+        colorCode = '#808080'
+        slackSend(channel:channelName ,color: colorCode, message: buildUrl)
 
         // Override default values based on build status
-        if (buildStatus == 'STARTED') {
-            color = 'YELLOW'
-            colorCode = '#FFFF00'
-        } else if (buildStatus == 'SUCCESSFUL') {
+        if ('${currentBuild.currentResult}' == 'SUCCESS') {
             color = 'GREEN'
             colorCode = '#00FF00'
-        } else {
+        }
+        else if ('${currentBuild.currentResult}' == 'UNSTABLE') {
+            color = 'BROWN'
+            colorCode = '#654321'
+        }
+        else if('${currentBuild.currentResult}'=='FAILURE'){
             color = 'RED'
             colorCode = '#FF0000'
         }
+        slackSend(channel:channelName ,color: colorCode, message: ${message})
 
-        // Send notifications
-        slackSend(channel:channelName ,color: colorCode, message: summary)
     }
 
     @NonCPS // has to be NonCPS or the build breaks on the call to .each
