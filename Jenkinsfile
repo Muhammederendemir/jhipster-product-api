@@ -7,12 +7,11 @@ node {
     }
 
     stage('check java') {
-        def message = 'check java completed'
         try {
             sh "java --version"
-            notifyBuild(message)
+            notifyBuild('check java completed')
         } catch (err) {
-            message=getBuildLog(currentBuild.rawBuild.getLog(1000))
+            def message=getBuildLog(currentBuild.rawBuild.getLog(1000))
             notifyBuild(message)
             throw err
 
