@@ -90,7 +90,7 @@ node {
             color = 'RED'
             colorCode = '#FF0000'
         }
-       // slackSend(channel:channelName ,color: colorCode, message: ${message})
+        slackSend(channel:channelName ,color: colorCode, message: message)
 
     }
 
