@@ -92,6 +92,6 @@ node {
         list.each { item ->
             log=log+"${item}"
         }
-        echo log
+        echo "log : "+log
 
     }
