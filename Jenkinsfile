@@ -12,11 +12,12 @@ node {
             sh "java --version"
 
         } catch (err) {
-            echo 'display name: ${currentBuild.fullDisplayName}'
+            echo 'display name: '+currentBuild.fullDisplayName
             message=getBuildLog(currentBuild.rawBuild.getLog(1000))
             throw err
 
         } finally {
+            echo 'currentResult : '+currentBuild.currentResult
             notifyBuild(message)
         }
 
