@@ -51,6 +51,10 @@ node {
         def channelName='#jenkins'
         def color='red'
 
+        def jobName="Job Name : ${env.JOB_NAME}\n"
+        color='PURPLE'
+        colorCode = '#4e5180'
+        slackSend(channel:channelName ,color: colorCode, message: jobName)
 
         def stageName= "Stage Name  : ${STAGE_NAME}\n"
         color='ROSYBROWN'
@@ -61,12 +65,6 @@ node {
         color='BLUE'
         colorCode = '#002366'
         slackSend(channel:channelName ,color: colorCode, message: buildState)
-
-        def jobName="Job Name : ${env.JOB_NAME}\n"
-        color='PURPLE'
-        colorCode = '#4e5180'
-        slackSend(channel:channelName ,color: colorCode, message: jobName)
-
 
         def buildNumber="Build Number : ${env.BUILD_NUMBER}\n"
         color='ORANGE'
@@ -92,7 +90,7 @@ node {
             color = 'RED'
             colorCode = '#FF0000'
         }
-        slackSend(channel:channelName ,color: colorCode, message: message)
+        slackSend(channel:channelName ,color: colorCode, message: message+'\n\n')
 
     }
 
