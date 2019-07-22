@@ -14,7 +14,7 @@ node {
 
         } catch (err) {
             currentBuild.result = 'FAILED'
-            notifyBuild('ERROR',"Hata Mesajı : "+echo_all(currentBuild.rawBuild.getLog(1000)))
+            notifyBuild(getBuildLog(currentBuild.rawBuild.getLog(1000)))
             throw err
 
         } finally {
@@ -95,7 +95,7 @@ node {
     }
 
     @NonCPS // has to be NonCPS or the build breaks on the call to .each
-    def echo_all(list) {
+    def getBuildLog(list) {
         def log=''
         list.each { item ->
             log=log+"${item}"+"\n"
