@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
 node {
-
     stage('checkout') {
         def message=null
         try {
@@ -124,7 +123,7 @@ node {
 
 }
 
-    def notifyStage(){
+    def notifyStage(String message){
         colorCode = '#FF0000'
         color='red'
         channelName='#jenkins'
