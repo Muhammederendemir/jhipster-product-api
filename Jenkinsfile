@@ -15,7 +15,7 @@ node {
             currentBuild.result = 'SUCCESS'
         } catch (Exception err) {
             currentBuild.result = 'FAILURE'
-            echo err
+            echo err.getMessage()
         }
         echo "RESULT: ${currentBuild.result}"
     }
