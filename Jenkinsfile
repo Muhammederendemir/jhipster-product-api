@@ -14,7 +14,7 @@ node {
 
         } catch (err) {
             currentBuild.result = 'FAILED'
-            echo currentBuild.rawBuild.number
+            echo currentBuild.rawBuild.getNumber()
             ech
             notifyBuild('STARTED',err.toString())
             //throw err
