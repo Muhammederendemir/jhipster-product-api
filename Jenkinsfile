@@ -7,6 +7,9 @@ node {
     }
 
     stage('check java') {
+        properties {
+            buildFailureAnalyzer()
+        }
 
         try {
             sh "java --version"
