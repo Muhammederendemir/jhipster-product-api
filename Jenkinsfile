@@ -7,24 +7,18 @@ node {
     }
 
     stage('check java') {
-        properties {
-            buildFailureAnalyzer()
-        }
-
+        def message = 'check java completed'
         try {
             sh "java --version"
-            currentBuild.result = 'SUCCESS'
 
         } catch (err) {
-            currentBuild.result = 'FAILED'
-            notifyBuild(getBuildLog(currentBuild.rawBuild.getLog(1000)))
+            echo 'display name: ${currentBuild.fullDisplayName}'
+            message=getBuildLog(currentBuild.rawBuild.getLog(1000))
             throw err
 
         } finally {
-            echo "Result Build : ${currentBuild.result}"
+            notifyBuild(message)
         }
-
-
 
     }
 
@@ -99,7 +93,7 @@ node {
 
     @NonCPS // has to be NonCPS or the build breaks on the call to .each
     def getBuildLog(list) {
-        def log=''
+        def log='Hata Mesajı : '
         list.each { item ->
             log=log+"${item}"+"\n"
         }
