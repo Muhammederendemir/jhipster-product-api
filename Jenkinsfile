@@ -13,7 +13,7 @@ node {
             currentBuild.result = 'SUCCESS'
         } catch (err) {
             currentBuild.result = 'FAILED'
-            echo "Failed: Build url : ${env.GIT_COMMIT}"
+            echo "Failed: Build url : ${env.BUILD_URL}"
             throw err
 
         } finally {
