@@ -14,6 +14,7 @@ node {
         } catch (err) {
             currentBuild.result = 'FAILED'
             echo "Failed: ${err}"
+            throw new Exception("Throw to stop pipeline")
 
         } finally {
             echo "Result Build : ${currentBuild.result}"
