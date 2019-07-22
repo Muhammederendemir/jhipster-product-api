@@ -53,9 +53,12 @@ node {
         // Default values
         def colorName = 'RED'
         def colorCode = '#FF0000'
-        def subject = " Build Status : ${buildStatus}: Job Name : ${env.JOB_NAME} Build Number : ${env.BUILD_NUMBER}]"
+        def buildState="Build Status : ${buildStatus}"
+        def jobName="Job Name : ${env.JOB_NAME}"
+        def buildNumber="Build Number : ${env.BUILD_NUMBER}]"
         def buildUrl= "Build Url  : ${env.BUILD_URL}"
-        def summary = "${subject} ${buildUrl} ${message}"
+
+        def summary = "${buildState} ${jobName} ${buildNumber} ${buildUrl} ${message}"
 
         // Override default values based on build status
         if (buildStatus == 'STARTED') {
