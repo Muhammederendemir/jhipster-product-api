@@ -14,7 +14,7 @@ node {
         } catch (err) {
             currentBuild.result = 'FAILED'
             echo "Failed: ${err}"
-            throw e
+            throw err
 
         } finally {
             echo "Result Build : ${currentBuild.result}"
