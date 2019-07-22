@@ -14,8 +14,7 @@ node {
 
         } catch (err) {
             currentBuild.result = 'FAILED'
-            echo currentBuild.rawBuild.getLog(100)
-            ech
+            echo_all(currentBuild.rawBuild.getLog(100))
             notifyBuild('STARTED',err.toString())
             //throw err
 
@@ -85,4 +84,11 @@ node {
 
         // Send notifications
         slackSend(channel: '#jenkins',color: colorCode, message: summary)
+    }
+
+    @NonCPS // has to be NonCPS or the build breaks on the call to .each
+    def echo_all(list) {
+        list.each { item ->
+            echo "${item}"
+        }
     }
