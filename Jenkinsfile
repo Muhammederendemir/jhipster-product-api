@@ -14,9 +14,8 @@ node {
 
         } catch (err) {
             currentBuild.result = 'FAILED'
-            echo_all(currentBuild.rawBuild.getLog(100))
-            notifyBuild('STARTED',err.toString())
-            //throw err
+            notifyBuild('ERROR',echo_all(currentBuild.rawBuild.getLog(1000)))
+            throw err
 
         } finally {
             echo "Result Build : ${currentBuild.result}"
@@ -81,6 +80,5 @@ node {
         list.each { item ->
             log=log+"${item}"+"\n"
         }
-        echo "log : "+log
-
+        return log
     }
