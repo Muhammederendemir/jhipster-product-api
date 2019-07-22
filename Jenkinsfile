@@ -9,15 +9,18 @@ node {
     stage('check java') {
 
         try {
-            // do something that doesn't fail
             sh "java --version"
-            echo "Im not going to fail"
             currentBuild.result = 'SUCCESS'
-        } catch (Exception err) {
-            currentBuild.result = 'FAILURE'
-            echo err.getMessage()
+        } catch (err) {
+            currentBuild.result = 'FAILED'
+            echo "Failed: ${err}"
+
+        } finally {
+            echo "Result Build : ${currentBuild.result}"
         }
-        echo "RESULT: ${currentBuild.result}"
+
+
+
     }
 
     stage('clean') {
