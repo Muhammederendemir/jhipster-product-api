@@ -1,6 +1,10 @@
 #!/usr/bin/env groovy
 
 node {
+
+    environment{
+        channelName='#jenkins'
+    }
     stage('checkout') {
         def message=null
         try {
@@ -13,7 +17,8 @@ node {
             throw err
 
         } finally {
-            notifyBuild(message)
+            notifyJob()
+            notifyStage(message)
         }
     }
 
@@ -29,7 +34,7 @@ node {
             throw err
 
         } finally {
-            notifyBuild(message)
+            notifyStage(message)
         }
 
     }
@@ -47,7 +52,7 @@ node {
             throw err
 
         } finally {
-            notifyBuild(message)
+            notifyStage(message)
         }
 
     }
@@ -64,7 +69,7 @@ node {
             throw err
 
         } finally {
-            notifyBuild(message)
+            notifyStage(message)
         }
     }
 
@@ -80,7 +85,7 @@ node {
             throw err
 
         } finally {
-            notifyBuild(message)
+            notifyStage(message)
         }
 
     }
@@ -98,7 +103,7 @@ node {
             throw err
 
         } finally {
-            notifyBuild(message)
+            notifyStage(message)
         }
 
     }
@@ -115,24 +120,14 @@ node {
             throw err
 
         } finally {
-            notifyBuild(message)
+            notifyStage(message)
         }
     }
 
 
 }
 
-    def notifyBuild(String message) {
-        // Default values1
-        def colorCode = '#FF0000'
-        def channelName='#jenkins'
-        def color='red'
-
-        def jobName="Job Name : ${env.JOB_NAME}\n"
-        color='PURPLE'
-        colorCode = '#4e5180'
-        slackSend(channel:channelName ,color: colorCode, message: jobName)
-
+    def notifyStage(){
         def stageName= "Stage Name  : ${STAGE_NAME}\n"
         color='ROSYBROWN'
         colorCode = '#BC8F8F'
@@ -142,18 +137,7 @@ node {
         color='BLUE'
         colorCode = '#002366'
         slackSend(channel:channelName ,color: colorCode, message: buildState)
-
-        def buildNumber="Build Number : ${env.BUILD_NUMBER}\n"
-        color='ORANGE'
-        colorCode = '#e86180'
-        slackSend(channel:channelName ,color: colorCode, message: buildNumber)
-
-        def buildUrl= "Build Url  : ${env.BUILD_URL}\n"
-        color='GREY'
-        colorCode = '#808080'
-        slackSend(channel:channelName ,color: colorCode, message: buildUrl)
-
-
+        
         // Override default values based on build status
         if (currentBuild.currentResult == 'SUCCESS') {
             color = 'GREEN'
@@ -167,8 +151,27 @@ node {
             color = 'RED'
             colorCode = '#FF0000'
         }
-        slackSend(channel:channelName ,color: colorCode, message: message+'\n\n')
+        slackSend(channel:$channelName ,color: colorCode, message: message+'\n\n')
 
+    }
+
+
+    def notifyJob(){
+
+        def jobName="Job Name : ${env.JOB_NAME}\n"
+        color='PURPLE'
+        colorCode = '#4e5180'
+        slackSend(channel:channelName ,color: colorCode, message: jobName)
+
+        def buildNumber="Build Number : ${env.BUILD_NUMBER}\n"
+        color='ORANGE'
+        colorCode = '#e86180'
+        slackSend(channel:channelName ,color: colorCode, message: buildNumber)
+
+        def buildUrl= "Build Url  : ${env.BUILD_URL}\n"
+        color='GREY'
+        colorCode = '#808080'
+        slackSend(channel:$channelName ,color: colorCode, message: buildUrl)
     }
 
     @NonCPS // has to be NonCPS or the build breaks on the call to .each
