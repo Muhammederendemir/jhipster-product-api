@@ -90,7 +90,7 @@ node {
     def echo_all(list) {
         def log=''
         list.each { item ->
-            log=log+"${item}"
+            log=log+"${item}"+"\n"
         }
         echo "log : "+log
 
