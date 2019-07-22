@@ -52,6 +52,11 @@ node {
         def color='red'
 
 
+        def stageName= "Stage Name  : ${STAGE_NAME}\n"
+        color='ROSYBROWN'
+        colorCode = '#BC8F8F'
+        slackSend(channel:channelName ,color: colorCode, message: stageName)
+
         def buildState="Build Status : ${currentBuild.currentResult}"
         color='BLUE'
         colorCode = '#002366'
@@ -72,6 +77,7 @@ node {
         color='GREY'
         colorCode = '#808080'
         slackSend(channel:channelName ,color: colorCode, message: buildUrl)
+
 
         // Override default values based on build status
         if (currentBuild.currentResult == 'SUCCESS') {
