@@ -151,8 +151,8 @@ node {
             color = 'RED'
             colorCode = '#FF0000'
         }
-        slackSend(channel:channelName ,color: colorCode, message: message+'\n\n')
-
+        slackSend(channel:channelName ,color: colorCode, message: message)
+        slackSend(channel:channelName ,color: '#000000', message: '')
     }
 
 
@@ -175,6 +175,8 @@ node {
         color='GREY'
         colorCode = '#808080'
         slackSend(channel:channelName ,color: colorCode, message: buildUrl)
+        slackSend(channel:channelName ,color: '#000000', message: '')
+        slackSend(channel:channelName ,color: '#000000', message: '')
     }
 
     @NonCPS // has to be NonCPS or the build breaks on the call to .each
