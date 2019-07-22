@@ -14,7 +14,7 @@ node {
 
         } catch (err) {
             currentBuild.result = 'FAILED'
-            notifyBuild('ERROR',echo_all(currentBuild.rawBuild.getLog(1000)))
+            notifyBuild('ERROR'," Hata Mesajı "+echo_all(currentBuild.rawBuild.getLog(1000)))
             throw err
 
         } finally {
@@ -50,13 +50,12 @@ node {
 }
 
     def notifyBuild(String buildStatus,String message) {
-//currentBuild.rawBuild
-
         // Default values
         def colorName = 'RED'
         def colorCode = '#FF0000'
-        def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-        def summary = "${subject} (${env.BUILD_URL}) ${message}"
+        def subject = " Build Status : ${buildStatus}: Job Name : ${env.JOB_NAME} Build Number : ${env.BUILD_NUMBER}]"
+        def buildUrl= "Build Url  : ${env.BUILD_URL}"
+        def summary = "${subject} ${buildUrl} ${message}"
 
         // Override default values based on build status
         if (buildStatus == 'STARTED') {
