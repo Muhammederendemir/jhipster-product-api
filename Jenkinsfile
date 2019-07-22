@@ -13,7 +13,7 @@ node {
             currentBuild.result = 'SUCCESS'
         } catch (err) {
             currentBuild.result = 'FAILED'
-            echo "Failed: Build url : ${env.BUILD_URL}"
+            echo "Failed: Build url : "+err.getCause().toString()
             throw err
 
         } finally {
