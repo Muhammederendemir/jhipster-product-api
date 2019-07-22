@@ -2,9 +2,6 @@
 
 node {
 
-    environment{
-        channelName='#jenkins'
-    }
     stage('checkout') {
         def message=null
         try {
@@ -128,6 +125,10 @@ node {
 }
 
     def notifyStage(){
+        colorCode = '#FF0000'
+        color='red'
+        channelName='#jenkins'
+
         def stageName= "Stage Name  : ${STAGE_NAME}\n"
         color='ROSYBROWN'
         colorCode = '#BC8F8F'
@@ -151,12 +152,15 @@ node {
             color = 'RED'
             colorCode = '#FF0000'
         }
-        slackSend(channel:$channelName ,color: colorCode, message: message+'\n\n')
+        slackSend(channel:channelName ,color: colorCode, message: message+'\n\n')
 
     }
 
 
     def notifyJob(){
+        colorCode = '#FF0000'
+        color='red'
+        channelName='#jenkins'
 
         def jobName="Job Name : ${env.JOB_NAME}\n"
         color='PURPLE'
@@ -171,7 +175,7 @@ node {
         def buildUrl= "Build Url  : ${env.BUILD_URL}\n"
         color='GREY'
         colorCode = '#808080'
-        slackSend(channel:$channelName ,color: colorCode, message: buildUrl)
+        slackSend(channel:channelName ,color: colorCode, message: buildUrl)
     }
 
     @NonCPS // has to be NonCPS or the build breaks on the call to .each
