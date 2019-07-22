@@ -10,7 +10,7 @@ node {
         def message='check java completed'
 
         try {
-            sh "java --version"
+            sh "java -version"
             currentBuild.result = 'SUCCESS'
         } catch (err) {
             currentBuild.result = 'FAILURE'
