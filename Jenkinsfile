@@ -53,10 +53,14 @@ node {
         // Default values
         def colorName = 'RED'
         def colorCode = '#FF0000'
-        def buildState="Build Status : ${buildStatus}"
-        def jobName="Job Name : ${env.JOB_NAME}"
-        def buildNumber="Build Number : ${env.BUILD_NUMBER}]"
-        def buildUrl= "Build Url  : ${env.BUILD_URL}"
+
+
+
+
+        def buildState="Build Status : ${buildStatus}\n"
+        def jobName="Job Name : ${env.JOB_NAME}\n"
+        def buildNumber="Build Number : ${env.BUILD_NUMBER}\n"
+        def buildUrl= "Build Url  : ${env.BUILD_URL}\n"
 
         def summary = "${buildState} ${jobName} ${buildNumber} ${buildUrl} ${message}"
 
