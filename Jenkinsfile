@@ -13,8 +13,8 @@ node {
             currentBuild.result = 'SUCCESS'
         } catch (err) {
             currentBuild.result = 'FAILED'
-            echo err
-            notifyBuild(err)
+            echo err.toString()
+            notifyBuild('STARTED',err.toString() )
             throw err
 
         } finally {
@@ -47,14 +47,14 @@ node {
 
 }
 
-    def notifyBuild(Exception err) {
+    def notifyBuild(String buildStatus,String message) {
 
 
         // Default values
         def colorName = 'RED'
         def colorCode = '#FF0000'
         def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-        def summary = "${subject} (${env.BUILD_URL}) ${err}"
+        def summary = "${subject} (${env.BUILD_URL}) ${message}"
 
         // Override default values based on build status
         if (buildStatus == 'STARTED') {
@@ -69,5 +69,5 @@ node {
         }
 
         // Send notifications
-        slackSend (color: colorCode, message: summary)
+        slackSend(channel: '#jenkins',color: colorCode, message: summary)
     }
