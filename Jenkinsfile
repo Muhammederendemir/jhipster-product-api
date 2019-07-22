@@ -4,10 +4,21 @@ node {
     stage('checkout') {
         checkout scm
         slackSend "Build Started - "
+
     }
 
     stage('check java') {
-        sh "java -version"
+
+        try {
+            // do something that doesn't fail
+            sh "java --version"
+            echo "Im not going to fail"
+            currentBuild.result = 'SUCCESS'
+        } catch (Exception err) {
+            currentBuild.result = 'FAILURE'
+            echo err
+        }
+        echo "RESULT: ${currentBuild.result}"
     }
 
     stage('clean') {
@@ -28,4 +39,6 @@ node {
         sh "./mvnw verify -Pdev -DskipTests"
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
     }
+
+
 }
