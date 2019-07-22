@@ -78,15 +78,15 @@ node {
         slackSend(channel:channelName ,color: colorCode, message: buildUrl)
 
         // Override default values based on build status
-        if (${currentBuild.currentResult} == 'SUCCESS') {
+        if (currentBuild.currentResult == 'SUCCESS') {
             color = 'GREEN'
             colorCode = '#00FF00'
         }
-        else if (${currentBuild.currentResult} == 'UNSTABLE') {
+        else if (currentBuild.currentResult == 'UNSTABLE') {
             color = 'BROWN'
             colorCode = '#654321'
         }
-        else if(${currentBuild.currentResult}=='FAILURE'){
+        else if(currentBuild.currentResult == 'FAILURE'){
             color = 'RED'
             colorCode = '#FF0000'
         }
