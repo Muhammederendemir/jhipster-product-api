@@ -53,7 +53,7 @@ public class CustomAuditEventRepositoryIntTest {
     public void setup() {
         customAuditEventRepository = new CustomAuditEventRepository(persistenceAuditEventRepository, auditEventConverter);
         persistenceAuditEventRepository.deleteAll();
-        //Instant oneHourAgo = Instant.now().minusSeconds(3600);
+        Instant oneHourAgo = Instant.now().minusSeconds(3600);
 
         testUserEvent = new PersistentAuditEvent();
         testUserEvent.setPrincipal("test-user");

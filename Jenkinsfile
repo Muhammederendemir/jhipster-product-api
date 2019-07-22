@@ -2,13 +2,23 @@
 
 node {
     stage('checkout') {
-        checkout scm
+        def message=null
+        try {
+            checkout scm
+            currentBuild.result = 'SUCCESS'
+            message='Build message : '+STAGE_NAME+' completed'
+        } catch (err) {
+            currentBuild.result = 'FAILURE'
+            message=getBuildLog(currentBuild.rawBuild.getLog(1000))
+            throw err
 
+        } finally {
+            notifyBuild(message)
+        }
     }
 
     stage('check java') {
         def message=null
-
         try {
             sh "java -version"
             currentBuild.result = 'SUCCESS'
@@ -25,21 +35,88 @@ node {
     }
 
     stage('clean') {
-        sh "chmod +x mvnw"
-        sh "./mvnw clean"
+        def message=null
+        try {
+            sh "chmod +x mvnw"
+            sh "./mvnw clean"
+            currentBuild.result = 'SUCCESS'
+            message='Build message : '+STAGE_NAME+' completed'
+        } catch (err) {
+            currentBuild.result = 'FAILURE'
+            message=getBuildLog(currentBuild.rawBuild.getLog(1000))
+            throw err
+
+        } finally {
+            notifyBuild(message)
+        }
+
     }
 
     stage('install tools') {
-        sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-npm -DnodeVersion=v10.15.0 -DnpmVersion=6.4.1"
+        def message=null
+        try {
+            sh "./mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-npm -DnodeVersion=v10.15.0 -DnpmVersion=6.4.1"
+            currentBuild.result = 'SUCCESS'
+            message='Build message : '+STAGE_NAME+' completed'
+        } catch (err) {
+            currentBuild.result = 'FAILURE'
+            message=getBuildLog(currentBuild.rawBuild.getLog(1000))
+            throw err
+
+        } finally {
+            notifyBuild(message)
+        }
     }
 
     stage('npm install') {
-        sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
+        def message=null
+        try {
+            sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
+            currentBuild.result = 'SUCCESS'
+            message='Build message : '+STAGE_NAME+' completed'
+        } catch (err) {
+            currentBuild.result = 'FAILURE'
+            message=getBuildLog(currentBuild.rawBuild.getLog(1000))
+            throw err
+
+        } finally {
+            notifyBuild(message)
+        }
+
     }
 
     stage('packaging') {
-        sh "./mvnw verify -Pdev -DskipTests"
-        archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+        def message=null
+        try {
+            sh "./mvnw verify -Pdev -DskipTests"
+            archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+            currentBuild.result = 'SUCCESS'
+            message='Build message : '+STAGE_NAME+' completed'
+        } catch (err) {
+            currentBuild.result = 'FAILURE'
+            message=getBuildLog(currentBuild.rawBuild.getLog(1000))
+            throw err
+
+        } finally {
+            notifyBuild(message)
+        }
+
+    }
+
+    stage('backend tests') {
+        def message=null
+        try {
+            sh "./mvnw test"
+            currentBuild.result = 'SUCCESS'
+            message='Build message : '+STAGE_NAME+' completed'
+        } catch (err) {
+            currentBuild.result = 'FAILURE'
+            message=getBuildLog(currentBuild.rawBuild.getLog(1000))
+            throw err
+
+        } finally {
+            notifyBuild(message)
+        }
     }
 
 
