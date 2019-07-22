@@ -7,11 +7,12 @@ node {
     }
 
     stage('check java') {
-        def message='check java completed'
+        def message=null
 
         try {
             sh "java -version"
             currentBuild.result = 'SUCCESS'
+            'Build message : '+getCurrentStage() ' completed'
         } catch (err) {
             currentBuild.result = 'FAILURE'
             message=getBuildLog(currentBuild.rawBuild.getLog(1000))
@@ -35,9 +36,6 @@ node {
     stage('npm install') {
         sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
     }
-
-
-
 
     stage('packaging') {
         sh "./mvnw verify -Pdev -DskipTests"
