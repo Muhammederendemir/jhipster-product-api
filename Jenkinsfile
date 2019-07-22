@@ -14,7 +14,7 @@ node {
 
         } catch (err) {
             currentBuild.result = 'FAILED'
-            notifyBuild('ERROR'," Hata Mesajı "+echo_all(currentBuild.rawBuild.getLog(1000)))
+            notifyBuild('ERROR'," Hata Mesajı : "+echo_all(currentBuild.rawBuild.getLog(1000)))
             throw err
 
         } finally {
@@ -53,7 +53,7 @@ node {
         // Default values
         def colorName = 'RED'
         def colorCode = '#FF0000'
-
+        def channelName='#jenkins';
 
 
 
@@ -77,7 +77,7 @@ node {
         }
 
         // Send notifications
-        slackSend(channel: '#jenkins',color: colorCode, message: summary)
+        slackSend(channel:channelName ,color: colorCode, message: summary)
     }
 
     @NonCPS // has to be NonCPS or the build breaks on the call to .each
