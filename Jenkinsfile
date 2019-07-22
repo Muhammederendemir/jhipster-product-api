@@ -8,9 +8,11 @@ node {
 
     stage('check java') {
         try {
+            currentBuild.currentResult='SUCCESS'
             sh "java --version"
             notifyBuild('check java completed')
         } catch (err) {
+            currentBuild.currentResult='FAILURE'
             def message=getBuildLog(currentBuild.rawBuild.getLog(1000))
             notifyBuild(message)
             throw err
