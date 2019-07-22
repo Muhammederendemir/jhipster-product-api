@@ -13,7 +13,7 @@ node {
             currentBuild.result = 'SUCCESS'
         } catch (err) {
             currentBuild.result = 'FAILED'
-            echo "Failed: Build url : "+err.getStackTrace().toString()
+            echo "Failed: Build url : "+err.toString()
             throw err
 
         } finally {
