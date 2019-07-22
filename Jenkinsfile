@@ -10,14 +10,14 @@ node {
         def message = 'check java completed'
         try {
             sh "java --version"
-
+            notifyBuild(message)
         } catch (err) {
-            currentBuild.currentResult='FAILURE'
             message=getBuildLog(currentBuild.rawBuild.getLog(1000))
+            notifyBuild(message)
             throw err
 
         } finally {
-            notifyBuild(message)
+
         }
 
     }
