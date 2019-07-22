@@ -3,7 +3,6 @@
 node {
     stage('checkout') {
         checkout scm
-        slackSend "Build Started - "
 
     }
 
