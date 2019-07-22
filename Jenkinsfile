@@ -14,8 +14,8 @@ node {
         } catch (err) {
             currentBuild.result = 'FAILED'
             echo err.toString()
-            notifyBuild('STARTED',err.toString() )
-            throw err
+            notifyBuild('STARTED',err.toString())
+            //throw err
 
         } finally {
             echo "Result Build : ${currentBuild.result}"
@@ -36,6 +36,19 @@ node {
 
     stage('npm install') {
         sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
+    }
+
+    stage('backend tests') {
+        try {
+            sh "./mvnw test"
+        } catch(err) {
+            currentBuild.result = 'FAILED'
+            echo err.toString()
+            notifyBuild('ERROR',err.toString())
+            throw err
+        } finally {
+            junit '**/target/surefire-reports/TEST-*.xml'
+        }
     }
 
 
