@@ -50,7 +50,7 @@ node {
 }
 
     def notifyBuild(String message) {
-        // Default values
+        // Default values1
         def colorCode = '#FF0000'
         def channelName='#jenkins'
         def color='red'
