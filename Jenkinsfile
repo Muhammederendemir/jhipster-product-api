@@ -11,9 +11,11 @@ node {
         try {
             sh "java --version"
             currentBuild.result = 'SUCCESS'
+
         } catch (err) {
             currentBuild.result = 'FAILED'
-            echo err.toString()
+            echo currentBuild.keepLog
+            ech
             notifyBuild('STARTED',err.toString())
             //throw err
 
@@ -61,7 +63,7 @@ node {
 }
 
     def notifyBuild(String buildStatus,String message) {
-
+//currentBuild.rawBuild
 
         // Default values
         def colorName = 'RED'
