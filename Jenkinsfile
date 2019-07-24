@@ -4,7 +4,7 @@ node{
     stage('checkout') {
         def message=null
         try {
-            checkout scmmm
+            checkout scm
             currentBuild.result = 'SUCCESS'
             message='Build message : '+STAGE_NAME+' completed'
         } catch (err) {
