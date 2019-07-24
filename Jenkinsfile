@@ -117,7 +117,7 @@ node{
     stage('backend tests') {
         def message=null
         try {
-            sh "./mvnw test"
+            sh "./mvnw testt"
             currentBuild.result = 'SUCCESS'
             message='Build message : '+STAGE_NAME+' completed'
         } catch (err) {
