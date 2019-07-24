@@ -55,7 +55,7 @@ node{
         } finally {
 
             notifyStage(message)
-            sendMail()
+
         }
 
     }
@@ -128,7 +128,7 @@ node{
         } finally {
 
             notifyStage(message)
-
+            sendMail()
         }
     }
 }
