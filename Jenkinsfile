@@ -25,7 +25,7 @@ node{
         try {
             sh "java -version"
             currentBuild.result = 'SUCCESS'
-            message='Build message : '+STAGE_NAME+' completed'
+            message='Build message : '+STAGE_NAME+' completed '
         } catch (err) {
             currentBuild.result = 'FAILURE'
             message=getBuildLog(currentBuild.rawBuild.getLog(1000))
