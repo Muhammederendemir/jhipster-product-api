@@ -4,7 +4,7 @@ node{
     stage('checkout') {
         def message=null
         try {
-            checkout scm
+            checkout scmm
             currentBuild.result = 'SUCCESS'
             message='Build message : '+STAGE_NAME+' completed'
         } catch (err) {
@@ -117,7 +117,7 @@ node{
     stage('backend tests') {
         def message=null
         try {
-            sh "./mvnw testt"
+            sh "./mvnw test"
             currentBuild.result = 'SUCCESS'
             message='Build message : '+STAGE_NAME+' completed'
         } catch (err) {
